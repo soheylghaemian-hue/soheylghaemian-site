@@ -1,6 +1,6 @@
 import path from 'node:path';import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {ROOT,isMain,DOMAIN,readJson,writeJson,allArticles,localDay,productionIssues,validateArticle,assertNew,digest,fetchSafe,verifySite} from './core.mjs';
-import {esc} from '../site/templates.mjs';
+import {esc,articlePath} from '../site/templates.mjs';
 export async function stage({root=ROOT,env=process.env,now=new Date()}={}){
  const run=await readJson(path.join(root,'agent/out/run.json'));
  if(run.action!=='ready')return {changed:false,action:run.action};
@@ -27,7 +27,7 @@ export async function requestDeploy({hook=process.env.VERCEL_DEPLOY_HOOK,fetcher
 export async function verifyArticle(a,{fetcher=fetch}={}){
  const manifest=await verifySite({},fetcher);
  if(!manifest.articles.some(m=>m.slug===a.slug&&m.contentHash===digest(a)))throw new Error('Expected article is not in the live build.');
- const url=`${DOMAIN}/insights/${a.slug}/`;
+ const url=`${DOMAIN}${articlePath(a)}`;
  const html=await fetchSafe(url+'?verify='+Date.now(),{fetcher});
  if(!html.includes('<html lang="en"')||!html.includes(`content="${digest(a)}"`)||!html.includes(`href="${url}"`)||!html.includes(`<h1>${esc(a.title)}</h1>`))throw new Error('Public article read-back did not match.');
  if(/name="robots" content="[^\"]*noindex/.test(html))throw new Error('Article is still a noindex preview.');
