@@ -57,7 +57,7 @@ test('known publication dates appear without being rewritten',()=>{
 test('blog handles an empty inventory and more than one article',()=>{
  assert.match(journal(site,[],true),/first essay is being prepared/);
  const second={...seed,slug:'another-essay',title:'A different question about ownership'};
- assert.ok(journal(site,[seed,second],true).includes('/blog/another-essay/'));
+ assert.ok(journal(site,[seed,second],true).includes('/insights/another-essay/'));
 });
 test('blog titles and excerpts remain escaped',()=>{
  const unsafe={...seed,title:'<script>bad</script>',description:'<img onerror="bad">'};
@@ -70,35 +70,37 @@ test('no fabricated contact details, images or testimonial counters are added',(
  assert.doesNotMatch(html,/<img\b|mailto:|trusted by|clients served|client testimonial/i);
  assert.match(html,/not yet been confirmed/);
 });
-test('editor policy prohibits sales pitches without enabling publication',()=>{
- assert.equal(policy.enabled,false);
- assert.equal(policy.automaticRoutinePublication,false);
+test('editor policy prohibits sales pitches and invented first-person experience',()=>{
  assert.match(policy.rules.join(' '),/not a consulting sales page/);
  assert.match(policy.rules.join(' '),/invented first-person experiences are not/);
 });
-test('legacy redirect is path-only and cannot send the blog back to insights',()=>{
- assert.deepEqual(config.redirects,[{source:'/insights/:path*',destination:'/blog/:path*',permanent:true}]);
+test('existing article URLs are preserved without redirect conflicts',()=>{
+ assert.equal(articlePath(seed),`/insights/${seed.slug}/`);
+ assert.equal(config.redirects,undefined);
  assert.ok(!('public' in config));
 });
-test('build includes the blog, posts and canonical legacy fallback copies',async()=>{
+test('build includes the blog, stable posts and canonical archive fallback',async()=>{
  const root=await fixture(); await build({root});
- for(const file of ['blog/index.html',`blog/${seed.slug}/index.html`,'insights/index.html',`insights/${seed.slug}/index.html`]){
+ for(const file of ['blog/index.html','insights/index.html',`insights/${seed.slug}/index.html`]){
   const html=await readFile(path.join(root,'dist',file),'utf8');
   assert.match(html,/noindex,nofollow/);
-  assert.match(html,/rel="canonical" href="https:\/\/soheylghaemian.com\/blog\//);
+  const canonical=file===`insights/${seed.slug}/index.html` ? DOMAIN+articlePath(seed) : DOMAIN+'/blog/';
+  assert.ok(html.includes(`rel="canonical" href="${canonical}"`));
  }
 });
-test('production sitemap uses new blog URLs; RSS retains stable legacy GUIDs',async()=>{
+test('production sitemap uses the blog index and RSS retains stable post URLs',async()=>{
  const root=await fixture();
  const active={...site,launchReady:true,contactEmail:'example@example.com',legalNotice:'Test-only publisher details. '.repeat(6),privacyNotice:'Test-only privacy information. '.repeat(8)};
  await writeFile(path.join(root,'config/site.json'),JSON.stringify(active));
  await writeFile(path.join(root,'content/articles',`${seed.slug}.json`),JSON.stringify({...seed,publishedDate:'2026-10-11'}));
  await build({root,production:true});
  const sitemap=await readFile(path.join(root,'dist/sitemap.xml'),'utf8');
- assert.ok(sitemap.includes(`${DOMAIN}/blog/`)); assert.ok(!sitemap.includes('/insights/'));
+ assert.ok(sitemap.includes(`${DOMAIN}/blog/`));
+ assert.ok(sitemap.includes(DOMAIN+articlePath(seed)));
+ assert.ok(!sitemap.includes(`<loc>${DOMAIN}/insights/</loc>`));
  const feed=await readFile(path.join(root,'dist/feed.xml'),'utf8');
  assert.ok(feed.includes(`<link>${DOMAIN}${articlePath(seed)}</link>`));
- assert.ok(feed.includes(`<guid isPermaLink="false">${DOMAIN}/insights/${seed.slug}/</guid>`));
+ assert.ok(feed.includes(`<guid>${DOMAIN}${articlePath(seed)}</guid>`));
  const manifest=await readJson(path.join(root,'dist/.well-known/endgame-site.json'));
  assert.equal(manifest.articles[0].url,DOMAIN+articlePath(seed));
 });
