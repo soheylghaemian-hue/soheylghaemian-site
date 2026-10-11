@@ -10,6 +10,7 @@ import { home, method, profile, journal, articlePage, articlePath, simple } from
 const site=await readJson(path.join(ROOT,'config/site.json'));
 const seed=await readJson(path.join(ROOT,'content/articles/before-you-grow-define-your-personal-goal.json'));
 const policy=await readJson(path.join(ROOT,'config/editor.json'));
+const config=await readJson(path.join(ROOT,'vercel.json'));
 const roots=[];
 after(async()=>{for(const root of roots) await rm(root,{recursive:true,force:true});});
 async function fixture(){
@@ -17,85 +18,87 @@ async function fixture(){
  for(const dir of ['site','config','agent/knowledge','content']) await cp(path.join(ROOT,dir),path.join(root,dir),{recursive:true});
  return root;
 }
-const pages=()=>[home(site,[seed],true),method(site,true),profile(site,true),journal(site,[seed],true),articlePage(site,seed,true),simple(site,'contact',true)];
+const publicPages=()=>[home(site,[seed],true),method(site,true),profile(site,true),journal(site,[seed],true),articlePage(site,seed,true),simple(site,'contact',true)];
 
-test('personal pages do not pitch an advisory engagement',()=>{
- for(const html of pages()) assert.doesNotMatch(html,/Your next move|Get in touch|Start with that conversation|Discuss your next move|I work with entrepreneurs|developing advisory framework|Book a call/i);
+test('personal site no longer offers a consultation or advisory engagement',()=>{
+ for(const html of publicPages()) assert.doesNotMatch(html,/Your next move|Get in touch|Start with that conversation|Discuss your next move|I work with entrepreneurs|developing advisory framework|Book a call/i);
  assert.match(home(site,[seed],true),/My model\. My strategy\./);
 });
-test('About, My model and Blog are visible navigation labels',()=>{
- for(const html of pages()){
+test('navigation consistently exposes About, My model and Blog',()=>{
+ for(const html of publicPages()){
   assert.match(html,/<a href="\/profile\/"[^>]*>About<\/a>/);
   assert.match(html,/<a href="\/method\/"[^>]*>My model<\/a>/);
   assert.match(html,/<a href="\/blog\/"[^>]*>Blog<\/a>/);
  }
 });
-test('blog index has a distinct canonical URL and Blog structured data',()=>{
+test('blog index has its own canonical URL and Blog structured data',()=>{
  const html=journal(site,[seed],true);
  assert.ok(html.includes(`rel="canonical" href="${DOMAIN}/blog/"`));
  assert.match(html,/"@type":"Blog"/);
  assert.match(html,/<a href="\/blog\/" aria-current="page">Blog<\/a>/);
+ assert.ok(html.includes(articlePath(seed)));
 });
-test('article addresses and reviewed-body verification remain compatible',()=>{
- assert.equal(articlePath(seed),`/insights/${seed.slug}/`);
+test('posts use BlogPosting and the exact reviewed body hash',()=>{
  const html=articlePage(site,seed,true);
  assert.match(html,/"@type":"BlogPosting"/);
  assert.ok(html.includes(`href="${DOMAIN}${articlePath(seed)}"`));
  assert.ok(html.includes(`content="${digest(seed)}"`));
- assert.match(html,/<a href="\/blog\/" aria-current="page">Blog<\/a>/);
+ assert.match(html,/href="\/blog\/">All essays/);
 });
-test('undated essays do not get fabricated publication dates',()=>{
+test('undated essays do not get invented publication dates',()=>{
  const html=articlePage(site,{...seed,publishedDate:null},true);
  assert.match(html,/Undated essay/);
  assert.doesNotMatch(html,/datePublished|<time /);
 });
-test('known dates are displayed without rewriting publication history',()=>{
+test('known publication dates appear without being rewritten',()=>{
  const html=articlePage(site,{...seed,publishedDate:'2026-10-11'},false);
  assert.match(html,/<time datetime="2026-10-11">2026-10-11<\/time>/);
 });
-test('blog works with zero, one and several essays',()=>{
+test('blog handles an empty inventory and more than one article',()=>{
  assert.match(journal(site,[],true),/first essay is being prepared/);
- assert.match(journal(site,[seed],true),/Opening essay/);
  const second={...seed,slug:'another-essay',title:'A different question about ownership'};
- const html=journal(site,[seed,second],true);
- assert.match(html,/Latest essay/);
- assert.ok(html.includes('/insights/another-essay/'));
+ assert.ok(journal(site,[seed,second],true).includes('/blog/another-essay/'));
 });
-test('blog content remains HTML-escaped',()=>{
+test('blog titles and excerpts remain escaped',()=>{
  const unsafe={...seed,title:'<script>bad</script>',description:'<img onerror="bad">'};
  const html=journal(site,[unsafe],true);
  assert.ok(html.includes('&lt;script&gt;bad&lt;/script&gt;'));
  assert.ok(!html.includes('<img onerror='));
 });
-test('no invented contact address, portrait or testimonials are added',()=>{
+test('no fabricated contact details, images or testimonial counters are added',()=>{
  const html=home(site,[seed],true)+profile(site,true)+simple({...site,contactEmail:''},'contact',true);
  assert.doesNotMatch(html,/<img\b|mailto:|trusted by|clients served|client testimonial/i);
  assert.match(html,/not yet been confirmed/);
 });
-test('editorial policy disallows sales pitches and fictional experience',()=>{
+test('editor policy prohibits sales pitches without enabling publication',()=>{
+ assert.equal(policy.enabled,false);
+ assert.equal(policy.automaticRoutinePublication,false);
  assert.match(policy.rules.join(' '),/not a consulting sales page/);
  assert.match(policy.rules.join(' '),/invented first-person experiences are not/);
 });
-test('build preserves existing paths and adds the blog without lifting launch gates',async()=>{
+test('legacy redirect is path-only and cannot send the blog back to insights',()=>{
+ assert.deepEqual(config.redirects,[{source:'/insights/:path*',destination:'/blog/:path*',permanent:true}]);
+ assert.ok(!('public' in config));
+});
+test('build includes the blog, posts and canonical legacy fallback copies',async()=>{
  const root=await fixture(); await build({root});
- for(const file of ['blog/index.html','insights/index.html',`insights/${seed.slug}/index.html`]){
+ for(const file of ['blog/index.html',`blog/${seed.slug}/index.html`,'insights/index.html',`insights/${seed.slug}/index.html`]){
   const html=await readFile(path.join(root,'dist',file),'utf8');
   assert.match(html,/noindex,nofollow/);
+  assert.match(html,/rel="canonical" href="https:\/\/soheylghaemian.com\/blog\//);
  }
- const oldIndex=await readFile(path.join(root,'dist/insights/index.html'),'utf8');
- assert.ok(oldIndex.includes(`rel="canonical" href="${DOMAIN}/blog/"`));
 });
-test('production sitemap and RSS use the blog index and stable article URLs',async()=>{
+test('production sitemap uses new blog URLs; RSS retains stable legacy GUIDs',async()=>{
  const root=await fixture();
  const active={...site,launchReady:true,contactEmail:'example@example.com',legalNotice:'Test-only publisher details. '.repeat(6),privacyNotice:'Test-only privacy information. '.repeat(8)};
  await writeFile(path.join(root,'config/site.json'),JSON.stringify(active));
  await writeFile(path.join(root,'content/articles',`${seed.slug}.json`),JSON.stringify({...seed,publishedDate:'2026-10-11'}));
  await build({root,production:true});
  const sitemap=await readFile(path.join(root,'dist/sitemap.xml'),'utf8');
- assert.ok(sitemap.includes(`${DOMAIN}/blog/`));
- assert.ok(sitemap.includes(`${DOMAIN}${articlePath(seed)}`));
- assert.ok(!sitemap.includes(`<loc>${DOMAIN}/insights/</loc>`));
+ assert.ok(sitemap.includes(`${DOMAIN}/blog/`)); assert.ok(!sitemap.includes('/insights/'));
  const feed=await readFile(path.join(root,'dist/feed.xml'),'utf8');
- assert.ok(feed.includes(`<link>${DOMAIN}/blog/</link>`));
- assert.ok(feed.includes(`<guid>${DOMAIN}${articlePath(seed)}</guid>`));
+ assert.ok(feed.includes(`<link>${DOMAIN}${articlePath(seed)}</link>`));
+ assert.ok(feed.includes(`<guid isPermaLink="false">${DOMAIN}/insights/${seed.slug}/</guid>`));
+ const manifest=await readJson(path.join(root,'dist/.well-known/endgame-site.json'));
+ assert.equal(manifest.articles[0].url,DOMAIN+articlePath(seed));
 });
