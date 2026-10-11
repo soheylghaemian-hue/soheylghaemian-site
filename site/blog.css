@@ -1,0 +1,12 @@
+/* Editorial blog: same palette and type, no sales panels or new image assets. */
+nav a[aria-current="page"]{text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:7px}
+.journal-heading{display:flex;justify-content:space-between;align-items:end;gap:28px;margin-bottom:22px}
+.journal-heading h2{font-size:clamp(35px,3.5vw,54px);margin-top:16px}
+.journal-heading .text-link{flex-shrink:0}
+.blog-feature{display:grid;grid-template-columns:230px minmax(0,900px);gap:6%;padding:64px 0 72px;border-bottom:1px solid var(--rule)}
+.blog-meta{font-size:13px;color:var(--muted)}.blog-meta .eyebrow{color:var(--accent);margin-bottom:20px}
+.blog-feature h2{font-size:clamp(34px,3.9vw,60px);line-height:1.14;max-width:900px}
+.blog-feature h2 a{text-decoration:none}.blog-feature .lead{margin-top:25px;max-width:760px}
+.blog-feature .muted{margin-top:24px;max-width:660px}.blog-reading{border-bottom:0}
+@media(max-width:900px){.blog-feature{grid-template-columns:150px minmax(0,1fr)}}
+@media(max-width:620px){.journal-heading{display:block}.journal-heading .text-link{margin-top:20px}.blog-feature{display:block;padding:35px 0 45px}.blog-meta{margin-bottom:26px}.blog-meta .eyebrow{margin-bottom:10px}.blog-feature h2{font-size:34px}.blog-feature .lead{font-size:20px}}
