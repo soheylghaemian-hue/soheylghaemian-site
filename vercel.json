@@ -37,12 +37,5 @@
         }
       ]
     }
-  ],
-  "redirects": [
-    {
-      "source": "/insights/:path*",
-      "destination": "/blog/:path*",
-      "permanent": true
-    }
   ]
 }
