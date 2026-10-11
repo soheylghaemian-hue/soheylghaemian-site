@@ -58,7 +58,7 @@
         "Which interests, rights and constraints shape the available routes?",
         "What does the next move require from me if it works—and what remains if it does not?",
         "What evidence will tell us that I am closer to the intended outcome?",
-        "That is the logic of GOAL, POSITION, MOVE and OUTCOME. ENDGAME is a developing advisory framework, not a guarantee of success or a substitute for specialist advice. Its practical purpose is to keep the desired outcome visible while the strategy is being built.",
+        "That is the logic of GOAL, POSITION, MOVE and OUTCOME. ENDGAME is a developing personal strategy model, not a guarantee of success or a substitute for specialist advice. Its practical purpose is to keep the desired outcome visible while the strategy is being built.",
         "A bigger business can be the right ambition. Make sure it is connected to the outcome you actually choose."
       ]
     }
@@ -67,8 +67,8 @@
   "createdAt": "2026-10-11T00:00:00+02:00",
   "review": {
     "passed": true,
-    "method": "initial-editorial-screening-within-authorized-evergreen-scope",
-    "contentHash": "8022f6c654610bdda0d7df8cd4fdb6d1fcd84f14d81377b4f0fb654792df16d4",
-    "reviewedAt": "2026-10-10T22:45:41.582Z"
+    "method": "editorial-wording-update-personal-model",
+    "contentHash": "50a78c5ba9c32d61bfc7ca8d7170468de35ec482e25ae6759fd16a87a39fa2c6",
+    "reviewedAt": "2026-10-11T15:10:09.080Z"
   }
 }
