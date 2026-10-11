@@ -14,16 +14,15 @@ export async function build({root=ROOT, production=false, now=new Date()}={}) {
  for(const f of ['style.css','main.js','favicon.svg'])await copyFile(path.join(root,'site',f),path.join(out,'assets',f));
  const preview=!production;
  const pages=new Map([['index.html',home(site,articles,preview)],['method/index.html',method(site,preview)],['profile/index.html',profile(site,preview)],['blog/index.html',journal(site,articles,preview)],['insights/index.html',journal(site,articles,preview)],...['contact','legal','privacy'].map(k=>[`${k}/index.html`,simple(site,k,preview)])]);
- // Keep existing article addresses and publisher verification stable. The old
- // archive remains readable but identifies /blog/ as its canonical landing page.
- for(const a of articles)pages.set(`${articlePath(a).slice(1)}index.html`,articlePage(site,a,preview));
+ // Legacy copies retain the new canonical URL; Vercel redirects old paths server-side.
+ for(const a of articles){pages.set(`blog/${a.slug}/index.html`,articlePage(site,a,preview));pages.set(`insights/${a.slug}/index.html`,articlePage(site,a,preview));}
  pages.set('404.html',layout(site,{title:'Page not found | Soheyl Ghaemian',description:'The requested page could not be found.',path:'/404/',preview:true,body:'<div class="wrap"><section class="page-head"><p class="eyebrow">404</p><h1>This is not the page<br>you were looking for.</h1><a class="text-link" href="/">Return home ↗</a></section></div>'}));
  for(const [p,h]of pages)await put(p,h);
  const paths=['/','/profile/','/method/','/blog/','/contact/','/legal/','/privacy/',...articles.map(articlePath)];
  const xml=v=>esc(v);
  await put('sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${(production?paths:[]).map(p=>`<url><loc>${xml(site.origin+p)}</loc></url>`).join('')}</urlset>`);
  await put('robots.txt',production?`User-agent: *\nAllow: /\nSitemap: ${site.origin}/sitemap.xml\n`:'User-agent: *\nDisallow: /\n');
- await put('feed.xml',`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Soheyl Ghaemian — Blog</title><link>${site.origin}/blog/</link><description>Personal essays on entrepreneurship, ownership and strategic decisions.</description><language>en</language>${(production?articles:[]).map(a=>`<item><title>${xml(a.title)}</title><link>${xml(site.origin+articlePath(a))}</link><guid>${xml(site.origin+articlePath(a))}</guid><description>${xml(a.description)}</description><pubDate>${new Date(a.publishedDate+'T12:00:00Z').toUTCString()}</pubDate></item>`).join('')}</channel></rss>`);
+ await put('feed.xml',`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Soheyl Ghaemian — Blog</title><link>${site.origin}/blog/</link><description>Personal essays on entrepreneurship, ownership and strategic decisions.</description><language>en</language>${(production?articles:[]).map(a=>`<item><title>${xml(a.title)}</title><link>${xml(site.origin+'/blog/'+a.slug+'/')}</link><guid isPermaLink="false">${xml(site.origin+'/insights/'+a.slug+'/')}</guid><description>${xml(a.description)}</description><pubDate>${new Date(a.publishedDate+'T12:00:00Z').toUTCString()}</pubDate></item>`).join('')}</channel></rss>`);
  const buildId=process.env.VERCEL_GIT_COMMIT_SHA||process.env.GITHUB_SHA||'local-preview';
  await put('.well-known/endgame-site.json',JSON.stringify({siteId:site.siteId,origin:site.origin,language:'en',launchReady:production&&site.launchReady,buildId,builtAt:now.toISOString(),articles:articles.map(a=>({slug:a.slug,title:a.title,url:site.origin+articlePath(a),contentHash:digest(a),date:a.publishedDate}))},null,2));
  return {mode:production?'production':'preview',htmlPages:pages.size,articles:articles.length,output:out};
