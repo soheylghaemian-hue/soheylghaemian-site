@@ -6,19 +6,6 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": true,
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.soheylghaemian.com"
-        }
-      ],
-      "destination": "https://soheylghaemian.com/$1",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
