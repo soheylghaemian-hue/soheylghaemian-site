@@ -1,0 +1,22 @@
+{
+  "name": "soheylghaemian-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "English ENDGAME editorial website and controlled daily publishing workflow",
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm test && npm run build",
+    "preview": "node scripts/serve.mjs",
+    "editor:prepare": "node agent/prepare.mjs",
+    "editor:stage": "node agent/publish.mjs stage",
+    "editor:verify": "node agent/publish.mjs verify",
+    "launch": "bash scripts/launch.sh",
+    "build:vercel": "node scripts/vercel-build.mjs",
+    "check:vercel": "npm test && npm run build:vercel"
+  }
+}

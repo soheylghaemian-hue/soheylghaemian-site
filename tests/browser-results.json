@@ -1,0 +1,65 @@
+{
+  "method": "Chromium in-memory rendering of generated local HTML; no network deployment verified",
+  "desktopPages": [
+    {
+      "file": "index.html",
+      "language": "en",
+      "h1": 1,
+      "desktopOverflow": false,
+      "internalTargetsExist": true
+    },
+    {
+      "file": "profile/index.html",
+      "language": "en",
+      "h1": 1,
+      "desktopOverflow": false,
+      "internalTargetsExist": true
+    },
+    {
+      "file": "method/index.html",
+      "language": "en",
+      "h1": 1,
+      "desktopOverflow": false,
+      "internalTargetsExist": true
+    },
+    {
+      "file": "insights/index.html",
+      "language": "en",
+      "h1": 1,
+      "desktopOverflow": false,
+      "internalTargetsExist": true
+    },
+    {
+      "file": "contact/index.html",
+      "language": "en",
+      "h1": 1,
+      "desktopOverflow": false,
+      "internalTargetsExist": true
+    },
+    {
+      "file": "legal/index.html",
+      "language": "en",
+      "h1": 1,
+      "desktopOverflow": false,
+      "internalTargetsExist": true
+    },
+    {
+      "file": "privacy/index.html",
+      "language": "en",
+      "h1": 1,
+      "desktopOverflow": false,
+      "internalTargetsExist": true
+    },
+    {
+      "file": "insights/before-you-grow-define-your-personal-goal/index.html",
+      "language": "en",
+      "h1": 1,
+      "desktopOverflow": false,
+      "internalTargetsExist": true
+    }
+  ],
+  "mobilePages": 8,
+  "mobileWidth": 390,
+  "menuToggle": "passed",
+  "pageErrors": []
+}
