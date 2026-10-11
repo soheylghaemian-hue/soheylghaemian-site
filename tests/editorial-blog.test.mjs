@@ -57,7 +57,7 @@ test('known publication dates appear without being rewritten',()=>{
 test('blog handles an empty inventory and more than one article',()=>{
  assert.match(journal(site,[],true),/first essay is being prepared/);
  const second={...seed,slug:'another-essay',title:'A different question about ownership'};
- assert.ok(journal(site,[seed,second],true).includes('/insights/another-essay/'));
+ assert.ok(journal(site,[seed,second],true).includes('/blog/another-essay/'));
 });
 test('blog titles and excerpts remain escaped',()=>{
  const unsafe={...seed,title:'<script>bad</script>',description:'<img onerror="bad">'};
@@ -74,21 +74,21 @@ test('editor policy prohibits sales pitches and invented first-person experience
  assert.match(policy.rules.join(' '),/not a consulting sales page/);
  assert.match(policy.rules.join(' '),/invented first-person experiences are not/);
 });
-test('existing article URLs are preserved without redirect conflicts',()=>{
- assert.equal(articlePath(seed),`/insights/${seed.slug}/`);
- assert.equal(config.redirects,undefined);
+test('old paths redirect to blog without changing domain-level routing',()=>{
+ assert.equal(articlePath(seed),`/blog/${seed.slug}/`);
+ assert.deepEqual(config.redirects,[{source:'/insights/:path*',destination:'/blog/:path*',permanent:true}]);
  assert.ok(!('public' in config));
 });
-test('build includes the blog, stable posts and canonical archive fallback',async()=>{
+test('build includes blog posts and canonical legacy fallback copies',async()=>{
  const root=await fixture(); await build({root});
- for(const file of ['blog/index.html','insights/index.html',`insights/${seed.slug}/index.html`]){
+ for(const file of ['blog/index.html',`blog/${seed.slug}/index.html`,'insights/index.html',`insights/${seed.slug}/index.html`]){
   const html=await readFile(path.join(root,'dist',file),'utf8');
   assert.match(html,/noindex,nofollow/);
-  const canonical=file===`insights/${seed.slug}/index.html` ? DOMAIN+articlePath(seed) : DOMAIN+'/blog/';
+  const canonical=file.endsWith(`${seed.slug}/index.html`) ? DOMAIN+articlePath(seed) : DOMAIN+'/blog/';
   assert.ok(html.includes(`rel="canonical" href="${canonical}"`));
  }
 });
-test('production sitemap uses the blog index and RSS retains stable post URLs',async()=>{
+test('production sitemap uses canonical blog URLs and RSS preserves old item identifiers',async()=>{
  const root=await fixture();
  const active={...site,launchReady:true,contactEmail:'example@example.com',legalNotice:'Test-only publisher details. '.repeat(6),privacyNotice:'Test-only privacy information. '.repeat(8)};
  await writeFile(path.join(root,'config/site.json'),JSON.stringify(active));
@@ -97,10 +97,10 @@ test('production sitemap uses the blog index and RSS retains stable post URLs',a
  const sitemap=await readFile(path.join(root,'dist/sitemap.xml'),'utf8');
  assert.ok(sitemap.includes(`${DOMAIN}/blog/`));
  assert.ok(sitemap.includes(DOMAIN+articlePath(seed)));
- assert.ok(!sitemap.includes(`<loc>${DOMAIN}/insights/</loc>`));
+ assert.ok(!sitemap.includes('/insights/'));
  const feed=await readFile(path.join(root,'dist/feed.xml'),'utf8');
  assert.ok(feed.includes(`<link>${DOMAIN}${articlePath(seed)}</link>`));
- assert.ok(feed.includes(`<guid>${DOMAIN}${articlePath(seed)}</guid>`));
+ assert.ok(feed.includes(`<guid isPermaLink="false">${DOMAIN}/insights/${seed.slug}/</guid>`));
  const manifest=await readJson(path.join(root,'dist/.well-known/endgame-site.json'));
  assert.equal(manifest.articles[0].url,DOMAIN+articlePath(seed));
 });
