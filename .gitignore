@@ -1,0 +1,6 @@
+dist/
+agent/out/
+.local/
+.vercel/
+node_modules/
+.env*

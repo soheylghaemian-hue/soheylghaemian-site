@@ -2,14 +2,14 @@
   "enabled": false,
   "automaticRoutinePublication": false,
   "maxArticlesPerLocalDay": 1,
-  "minimumWords": 450,
-  "maximumWords": 1600,
+  "minimumWords": 600,
+  "maximumWords": 1000,
   "maximumTitleSimilarity": 0.65,
   "maximumBodySimilarity": 0.3,
   "sourceRegister": "agent/knowledge/approved.json",
   "topicFile": "agent/knowledge/topics.json",
   "rules": [
-    "Original English analysis for business owners, not pages whose only purpose is name repetition.",
+    "Original English analysis and an editorially adapted German version for business owners.",
     "This is a personal blog about Soheyl's model and thinking, not a consulting sales page. Do not pitch services, invite bookings, imply a client engagement, add sales calls to action or promise an outcome. Use clear reflective analysis rather than coaching copy. First-person reasoning is allowed; invented first-person experiences are not.",
     "No invented biography, clients, outcomes, quotations, awards, credentials or independent endorsements.",
     "No allegations, named-client stories, disputes, medical/legal/tax advice or novel personal claims in automatic publication.",
@@ -17,6 +17,9 @@
     "ENDGAME is a developing personal strategy model, not a scientifically validated or uniquely invented system.",
     "New external factual assertions need verified sources and human review; this automatic lane uses approved reasoning only.",
     "Missing evidence, failed review or unresolved deployment means stop, not filler or a backlog dump.",
-    "Only article data may be generated. Never execute model output or alter website templates, DNS, secrets or legal pages."
-  ]
+    "Only article data may be generated. Never execute model output or alter website templates, DNS, secrets or legal pages.",
+    "One contribution consists of both EN and DE versions, with the same licensed editorial photograph and localised alt text.",
+    "Every new contribution uses /en/blog/<slug>/ and /de/blog/<slug>/. Existing article URLs are preserved."
+  ],
+  "bilingualRequired": true
 }

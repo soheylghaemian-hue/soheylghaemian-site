@@ -2,7 +2,7 @@ import { digest, localDay } from '../agent/core.mjs';
 import { layout, esc } from './templates.mjs';
 
 // Keep article URLs and RSS GUIDs stable; this change does not migrate the blog.
-const articleUrl = (site, article) => `${site.origin}/insights/${article.slug}/`;
+const articleUrl = (site, article) => `${site.origin}${article.translations?`/en/blog/${article.slug}/`:`/insights/${article.slug}/`}`;
 const xml = value => esc(String(value ?? '').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, ''));
 
 export function feedArticles(articles, { production = false, now = new Date() } = {}) {

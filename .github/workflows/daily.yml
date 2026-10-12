@@ -1,0 +1,42 @@
+name: ENDGAME daily bilingual publication
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: endgame-daily-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main' && vars.PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PUBLISH_ENABLED: ${{ vars.PUBLISH_ENABLED }}
+      OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+      OPENAI_REVIEW_MODEL: ${{ vars.OPENAI_REVIEW_MODEL }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Verify prerequisites and prepare one EN/DE contribution
+        run: npm run editor:prepare
+      - name: Stage only the new contribution
+        run: npm run editor:stage
+      - name: Validate build
+        run: npm run check:vercel
+      - name: Commit with fresh domain and daily-limit checks
+        run: node scripts/commit-publication.mjs
+      - name: Verify both real article URLs and image
+        run: npm run editor:verify
+      - name: Record outcome
+        if: always()
+        run: node scripts/publication-summary.mjs

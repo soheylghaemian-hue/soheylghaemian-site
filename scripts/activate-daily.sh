@@ -17,7 +17,7 @@ gh secret set VERCEL_DEPLOY_HOOK --repo "$REPO"
 read -r -p 'Supported writing model ID available in your API account: ' MODEL
 [[ -n "$MODEL" ]] || { printf 'No model selected. Activation aborted.\n' >&2; exit 1; }
 gh variable set OPENAI_MODEL --repo "$REPO" --body "$MODEL"
-printf '\nActivation will permit at most one automatically screened evergreen English article per day.\n'
+printf '\nActivation will permit at most one automatically screened evergreen bilingual EN/DE contribution per day.\n'
 printf 'Model/API and platform usage can incur charges on your accounts. No plan upgrade is performed.\n'
 read -r -p 'Type ENABLE to authorize daily execution: ' CONFIRM
 [[ "$CONFIRM" == 'ENABLE' ]] || exit 1
