@@ -1,0 +1,24 @@
+import {execFileSync} from 'node:child_process';
+import path from 'node:path';
+import {ROOT,readJson,localDay,digest,productionIssues,verifySite} from '../agent/core.mjs';
+const git=(...args)=>execFileSync('git',args,{cwd:ROOT,encoding:'utf8'}).trim();
+const run=await readJson(path.join(ROOT,'agent/out/run.json'));
+if(run.action==='recover')process.exit(0);
+if(run.action!=='staged-not-live'||run.day!==localDay()||!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(run.slug))throw new Error('Invalid or stale publishing decision.');
+if(git('branch','--show-current')!=='main'||git('remote','get-url','origin')!=='https://github.com/soheylghaemian-hue/soheylghaemian-site')throw new Error('Unexpected branch or publishing repository.');
+const site=await readJson(path.join(ROOT,'config/site.json'));
+const policy=await readJson(path.join(ROOT,'config/editor.json'));
+if(process.env.PUBLISH_ENABLED!=='true'||!policy.enabled||!policy.automaticRoutinePublication||productionIssues(site).length)throw new Error('Publication gate closed.');
+await verifySite(site);
+const articlePath=`content/articles/${run.slug}.json`;
+const article=await readJson(path.join(ROOT,articlePath));
+if(digest(article)!==run.contentHash||article.publishedDate!==run.day)throw new Error('Staged contribution changed.');
+const changed=git('status','--porcelain','--untracked-files=all').split('\n').filter(Boolean);
+if(changed.length!==1||changed[0]!==`?? ${articlePath}`)throw new Error('Only one new article file may be committed.');
+git('fetch','origin','main');
+if(git('rev-parse','HEAD')!==git('rev-parse','origin/main'))throw new Error('Main changed during preparation; retry from the fresh inventory.');
+git('config','user.name','ENDGAME Publisher');git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com');
+git('add','--',articlePath);
+git('commit','-m',`Publish one EN/DE contribution for ${run.day}`);
+// A normal fast-forward push fails on concurrent changes. Never force or relax protection.
+git('push','origin','HEAD:main');

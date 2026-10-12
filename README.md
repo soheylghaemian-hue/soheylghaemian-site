@@ -1,5 +1,7 @@
 # Soheyl Ghaemian — ENDGAME
 
+> **12 October 2026 technical repair:** Bilingual EN/DE article bundles, registered licensed images and guarded daily GitHub Actions are now implemented. Automatic publication and launch remain OFF until the real prerequisites pass. Read [PUBLISHING-STATUS.md](PUBLISHING-STATUS.md) for the current contract, verification, missing inputs and activation steps; the original English-only setup notes below describe the earlier release.
+
 > **Browser-start edition (11 October 2026).** Follow `BROWSERSTART-DE.md` for a no-terminal upload and import. `vercel.json` now runs `npm run check:vercel`. When `config/site.json` has `launchReady:false`, even the first Vercel main-branch (Production-environment) import renders an explicitly nonindexable draft. This is a staging mode in the application, not a claim that Vercel classified the deployment as a Preview. Setting `launchReady:true` only permits the production validation to run: real contact/publisher/privacy text and valid article publication dates are still required. A noindex draft is **not access-controlled or confidential**. Default daily publishing remains OFF. No design or editorial content has changed.
 
 A real, dependency-free Node.js 22 website implementation plus a GitHub Actions editorial/publishing workflow. English content; intended production domain: **https://soheylghaemian.com**. GitHub → Vercel → exact domain. No WordPress, Railway deployment or substitute production domain.
