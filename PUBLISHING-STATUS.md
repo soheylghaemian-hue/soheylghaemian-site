@@ -31,3 +31,11 @@ Images are an explicit, reviewed finite register in `config/images.json`, includ
 ## Validation
 
 The prior suite and bilingual tests pass. Tests cover exact redirects, wrong-site redirects, changed translation review hashes, unsafe DE input, missing or altered licensed images, paired URL output, unchanged homepage, one-file staging, same-day retries, rejecting English-only candidates, both complete article bodies and image-byte verification. Existing public files were compared byte-for-byte against main; only the sitemap/marker and new language pages differ. Paid model calls, real publication and final production read-back are pending the missing inputs above.
+
+## ENDGAME-only monthly API guard
+
+The authorized ceiling is 20 EUR per Europe/Berlin calendar month. Before every model request, the publisher durably reserves a conservative worst-case amount in an isolated lightweight Git tag `endgame-budget-ledger`, containing only `ledger.json`. It does not change website main or other applications' OpenAI project limits. An optimistic fast-forward update prevents two callers from spending against the same old balance. Missing authority/ledger, conflicts and uncertain writes stop before API use. Failed or incomplete model requests retain their reservations; there is no automatic refund or retry.
+
+Only standard-tier `gpt-5.4-mini` is permitted, with at most 10,000 output tokens and a 45,000-byte complete request. The input estimate is conservatively fixed at 47,000 tokens including overhead. At the verified rates of USD 0.75/M input and USD 4.50/M output, a 10,000-token request reserves 17 euro cents; a 3,000-token screening reserves 10 euro cents. The conversion reserve uses 2 EUR per USD to include exchange/tax margin. This is an operational reservation cap, not an exact invoice measurement or a hard limit on the entire shared OpenAI account. External price, exchange, tax or platform fees outside these assumptions need reassessment. Pricing approval expires 12 November 2026; API use then stops until reviewed. No paid test has been executed.
+
+Sources checked 12 October 2026: https://developers.openai.com/api/docs/models/gpt-5.4-mini and https://developers.openai.com/api/docs/guides/spend-limits .

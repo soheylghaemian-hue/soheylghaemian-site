@@ -1,0 +1,15 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {allowance,reserveBudget} from '../agent/budget.mjs';
+import {structured} from '../agent/provider.mjs';
+const body={model:'gpt-5.4-mini',service_tier:'default',max_output_tokens:10000,input:'test'};
+const now=new Date('2026-10-12T12:00:00Z');
+const env={ENDGAME_MONTHLY_BUDGET_EUR:'20',GITHUB_TOKEN:'test-token',GITHUB_REPOSITORY:'soheylghaemian-hue/soheylghaemian-site',GITHUB_REF:'refs/heads/main'};
+const response=x=>({ok:true,json:async()=>x});
+function ledgerFetch(months,{conflict=false}={}){let saved=false;return {get saved(){return saved;},fetcher:async(u,o)=>{if(u.includes('/git/ref/'))return response({object:{type:'commit',sha:'a'.repeat(40)}});if(u.includes('/contents/'))return response({sha:'blob',content:Buffer.from(JSON.stringify({version:1,months})).toString('base64')});if(u.endsWith('/trees'))return response({sha:'tree'});if(u.endsWith('/commits'))return response({sha:'b'.repeat(40)});assert.ok(u.includes('/git/refs/tags/'));assert.equal(JSON.parse(o.body).force,false);saved=!conflict;return {ok:!conflict};}};}
+test('maximum request reserves 17 cents and review reserves 10 cents',()=>{assert.equal(allowance(body,now),17);assert.equal(allowance({...body,max_output_tokens:3000},now),10);});
+test('unknown model, premium tier, oversized input and expired pricing fail closed',()=>{for(const b of [{...body,model:'expensive-model'},{...body,service_tier:'priority'},{...body,input:'x'.repeat(45001)},{...body,max_output_tokens:10001}])assert.throws(()=>allowance(b,now));assert.throws(()=>allowance(body,new Date('2026-11-13')),/expired/);});
+test('budget survives runs and will not reserve beyond 20 EUR',async()=>{const f=ledgerFetch({'2026-10':1990});await assert.rejects(reserveBudget(body,{env,now,fetcher:f.fetcher}),/20 EUR/);assert.equal(f.saved,false);});
+test('new Berlin month starts a new balance while preserving previous records',async()=>{const f=ledgerFetch({'2026-09':2000});const r=await reserveBudget(body,{env,now,fetcher:f.fetcher});assert.equal(r.totalReservedCents,17);assert.equal(f.saved,true);});
+test('missing ledger, wrong authority and write conflicts block calls',async()=>{await assert.rejects(reserveBudget(body,{env:{},now}),/authority/);await assert.rejects(reserveBudget(body,{env,now,fetcher:async()=>({ok:false})}),/unavailable/);const f=ledgerFetch({},{conflict:true});await assert.rejects(reserveBudget(body,{env,now,fetcher:f.fetcher}),/conflicted/);});
+test('provider does not call the paid endpoint when reservation fails',async()=>{let called=false;await assert.rejects(structured({model:'gpt-5.4-mini',key:'dummy',schema:{},name:'test',input:{},now,reserve:async()=>{throw new Error('Budget reached');},fetcher:async()=>{called=true;}}),/Budget reached/);assert.equal(called,false);});
+test('failed API calls retain their durable reservation',async()=>{let reserved=false;await assert.rejects(structured({model:'gpt-5.4-mini',key:'dummy',schema:{},name:'test',input:{},now,reserve:async()=>{reserved=true;},fetcher:async()=>({ok:false,status:500})}),/HTTP 500/);assert.equal(reserved,true);});
