@@ -1,7 +1,7 @@
 import {isBilingual,approvedImage} from './bilingual.mjs';
 import path from 'node:path';
 import {ROOT,isMain,readJson,writeJson,listJson,allArticles,localDay,productionIssues,validateArticle,assertNew,digest,verifySite,assertDeployHook} from './core.mjs';
-import {generateAndReview} from './provider.mjs';
+import {generateAndReview,screenArticle} from './provider.mjs';
 
 export async function prepare({root=ROOT,env=process.env,now=new Date(),fetcher=fetch,generate=generateAndReview}={}){
  const [site,policy,sources,topics,inventory]=await Promise.all([readJson(path.join(root,'config/site.json')),readJson(path.join(root,'config/editor.json')),readJson(path.join(root,'agent/knowledge/approved.json')),readJson(path.join(root,'agent/knowledge/topics.json')),allArticles(root)]);
@@ -20,7 +20,8 @@ export async function prepare({root=ROOT,env=process.env,now=new Date(),fetcher=
  const topic=topics.find(t=>!inventory.some(a=>a.topicId===t.id));
  if(!topic)throw new Error('Topic backlog exhausted. Add reviewed topics; do not recycle articles.');
  let article;
- for(const f of await listJson(path.join(root,'content/queue'))){const candidate=await readJson(path.join(root,'content/queue',f));if(candidate.topicId===topic.id&&candidate.review?.passed){article=candidate;break;}}
+ for(const f of await listJson(path.join(root,'content/queue'))){const candidate=await readJson(path.join(root,'content/queue',f));if(candidate.topicId===topic.id){article=candidate;break;}}
+ if(article&&!article.review?.passed){await screenArticle({article,sources,policy,inventory,env,fetcher,root});article.review={passed:true,method:'automatic-independent-screening-existing-draft',contentHash:digest(article),reviewedAt:now.toISOString()};}
  if(!article){const generated=await generate({topic,sources,policy,inventory,env,fetcher,root});article={...generated.article,publishedDate:null,createdAt:now.toISOString()};article.review={passed:true,method:'automatic-independent-screening',contentHash:digest(article),reviewedAt:now.toISOString()};}
  if(article.topicId!==topic.id)throw new Error('Generated article does not match the selected topic.');
  if(policy.bilingualRequired&&!isBilingual(article))throw new Error('Both EN and DE versions are required.');

@@ -9,7 +9,7 @@ import {prepare} from '../agent/prepare.mjs';
 import {stage,requestDeploy,verifyArticle,deployAndVerify} from '../agent/publish.mjs';
 import {structured} from '../agent/provider.mjs';
 const seed=await readJson(path.join(ROOT,'content/articles/before-you-grow-define-your-personal-goal.json'));
-const baseSite=await readJson(path.join(ROOT,'config/site.json'));
+const baseSite={...await readJson(path.join(ROOT,'config/site.json')),launchReady:false,contactEmail:'',legalNotice:'',privacyNotice:''};
 const policy=await readJson(path.join(ROOT,'config/editor.json'));
 const sources=await readJson(path.join(ROOT,'agent/knowledge/approved.json'));
 const temp=[];after(async()=>{for(const p of temp)await rm(p,{recursive:true,force:true});});
@@ -55,7 +55,7 @@ test('HTML escaping covers scripts, quotes and ampersands',()=>assert.equal(esc(
 test('preview build does not expose the source tree',async()=>{const root=await fixture();const r=await build({root});assert.ok(r.htmlPages>=8);const files=await readdir(path.join(root,'dist'));assert.ok(!files.includes('agent'));assert.ok(!files.includes('config'));assert.ok(!files.includes('.env'));});
 test('preview is explicitly non-indexable',async()=>{const root=await fixture();await build({root});const html=await readFile(path.join(root,'dist/index.html'),'utf8');assert.ok(html.includes('noindex,nofollow'));assert.match(await readFile(path.join(root,'dist/robots.txt'),'utf8'),/Disallow: \//);assert.equal((await readJson(path.join(root,'dist/.well-known/endgame-site.json'))).launchReady,false);});
 test('production build emits English canonical and sitemap',async()=>{const root=await fixture();await build({root,production:true});const html=await readFile(path.join(root,'dist/index.html'),'utf8');assert.ok(html.includes('<html lang="en"'));assert.ok(html.includes(`href="${DOMAIN}/"`));assert.ok(!html.includes('noindex'));assert.ok((await readFile(path.join(root,'dist/sitemap.xml'),'utf8')).includes(`/insights/${seed.slug}/`));});
-test('production refuses an undated draft',async()=>{const root=await fixture();await writeJson(path.join(root,'content/articles',`${seed.slug}.json`),seed);await assert.rejects(build({root,production:true}),/publication date/);});
+test('production refuses a new undated draft',async()=>{const root=await fixture();const a=clone(seed);a.slug='new-undated-draft';a.review.contentHash=digest(a);await writeJson(path.join(root,'content/articles',`${a.slug}.json`),a);await assert.rejects(build({root,production:true}),/publication date/);});
 test('sitemap does not falsely refresh every article date',async()=>{const root=await fixture();await build({root,production:true});const sitemap=await readFile(path.join(root,'dist/sitemap.xml'),'utf8');assert.ok(!sitemap.includes('lastmod'));});
 test('contact details are not fabricated',async()=>{const r=await fixture();await writeJson(path.join(r,'config/site.json'),baseSite);await build({root:r});assert.ok((await readFile(path.join(r,'dist/contact/index.html'),'utf8')).includes('not yet been confirmed'));});
 test('network helper rejects off-domain requests',async()=>assert.rejects(fetchSafe('https://attacker.example/',{fetcher:noFetch}),/origin/));

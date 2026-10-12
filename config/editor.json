@@ -1,6 +1,6 @@
 {
-  "enabled": false,
-  "automaticRoutinePublication": false,
+  "enabled": true,
+  "automaticRoutinePublication": true,
   "maxArticlesPerLocalDay": 1,
   "minimumWords": 600,
   "maximumWords": 1000,

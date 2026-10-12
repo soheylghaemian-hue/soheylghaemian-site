@@ -14,6 +14,9 @@ async function fixture() {
   for (const dir of ['site', 'config', 'agent/knowledge', 'content']) {
     await cp(path.join(ROOT, dir), path.join(root, dir), {recursive:true});
   }
+  const config=path.join(root,'config/site.json');
+  const site=JSON.parse(await readFile(config,'utf8'));
+  await writeFile(config,JSON.stringify({...site,launchReady:false,contactEmail:'',legalNotice:'',privacyNotice:''}));
   return root;
 }
 async function patch(root, updates) {
