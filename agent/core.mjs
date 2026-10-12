@@ -31,6 +31,9 @@ export function localDay(date = new Date()) {
 export function publicPayload(a) {
   return { ...(isBilingual(a)?{translations:a.translations,image:a.image}:{}), title: a.title, description: a.description, language: a.language, slug: a.slug, topicId: a.topicId, sourceIds: a.sourceIds, sections: a.sections };
 }
+// The pre-launch seed was already publicly visible without a publication date.
+// Preserve only this exact immutable draft; never invent a date or exempt new content.
+export function isLegacyDraft(a) { return a.slug==='before-you-grow-define-your-personal-goal'&&a.publishedDate==null&&!isBilingual(a)&&digest(a)==='50a78c5ba9c32d61bfc7ca8d7170468de35ec482e25ae6759fd16a87a39fa2c6'; }
 export function digest(a) { return createHash('sha256').update(JSON.stringify(publicPayload(a))).digest('hex'); }
 export function articleText(a) { return a.sections.map(s => `${s.heading}\n${s.paragraphs.join('\n')}`).join('\n\n'); }
 export function wordCount(text) { return (text.match(/\b[\p{L}\p{N}][\p{L}\p{N}'’-]*\b/gu) || []).length; }

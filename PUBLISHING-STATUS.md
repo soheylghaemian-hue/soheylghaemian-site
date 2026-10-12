@@ -39,3 +39,11 @@ The authorized ceiling is 20 EUR per Europe/Berlin calendar month. Before every 
 Only standard-tier `gpt-5.4-mini` is permitted, with at most 10,000 output tokens and a 45,000-byte complete request. The input estimate is conservatively fixed at 47,000 tokens including overhead. At the verified rates of USD 0.75/M input and USD 4.50/M output, a 10,000-token request reserves 17 euro cents; a 3,000-token screening reserves 10 euro cents. The conversion reserve uses 2 EUR per USD to include exchange/tax margin. This is an operational reservation cap, not an exact invoice measurement or a hard limit on the entire shared OpenAI account. External price, exchange, tax or platform fees outside these assumptions need reassessment. Pricing approval expires 12 November 2026; API use then stops until reviewed. No paid test has been executed.
 
 Sources checked 12 October 2026: https://developers.openai.com/api/docs/models/gpt-5.4-mini and https://developers.openai.com/api/docs/guides/spend-limits .
+
+## Owner-supplied launch details — 12 October 2026
+
+The owner has now supplied the c/o address and recipient for public use: Soheyl Ghaemian, c/o Ghaemian, Schweizertalstraße 30, 69118 Heidelberg, Germany. Public email and mailbox provider are confirmed as info@meridiangate.io and STRATO. Publisher/privacy notices are completed from those details and the verified hosting implementation. No claim of independent legal review or postal-address validation is made.
+
+Launch and editorial configuration switches are deliberately enabled in this change, but the separate GitHub PUBLISH_ENABLED variable remains the final execution gate until the deployed production marker is verified. Homepage, profile and model-page bodies remain identical to the existing pages; indexing metadata, public notices and blog output are the intended changes. DNS is untouched.
+
+The exact immutable pre-launch seed (slug and SHA-256 bound in code) remains an undated, noindex legacy draft at its existing URL. It is excluded from sitemap/RSS and is not treated as today's new contribution. No new or modified undated article receives that exception. Tests preserve rejection of all new undated publication content. The initial controlled daily job must publish at most one newly screened EN/DE contribution and verify both actual URLs.
