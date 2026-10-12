@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
+      GITHUB_TOKEN: ${{ github.token }}
+      ENDGAME_MONTHLY_BUDGET_EUR: ${{ vars.ENDGAME_MONTHLY_BUDGET_EUR }}
       PUBLISH_ENABLED: ${{ vars.PUBLISH_ENABLED }}
       OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
       OPENAI_REVIEW_MODEL: ${{ vars.OPENAI_REVIEW_MODEL }}
