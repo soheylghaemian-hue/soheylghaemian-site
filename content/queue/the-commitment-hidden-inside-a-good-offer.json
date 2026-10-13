@@ -67,10 +67,10 @@
   ],
   "translations": {
     "de": {
-      "title": "Welche Bindung ein gutes Angebot mitbringt",
+      "title": "Die Verpflichtung, die ein gutes Angebot verbirgt",
       "description": "Soheyl Ghaemian untersucht die Verpflichtungen hinter einem guten Angebot: Eigentümerziele, Entscheidungsrechte und die Prüfung der Zusammenarbeit.",
       "language": "de",
-      "slug": "welche-bindung-ein-gutes-angebot-mitbringt",
+      "slug": "die-verpflichtung-die-ein-gutes-angebot-verbirgt",
       "sections": [
         {
           "heading": "Ein Angebot ist eine fortlaufende Zusammenarbeit",
@@ -155,8 +155,8 @@
   "createdAt": "2026-10-12T18:00:09.151Z",
   "review": {
     "passed": false,
-    "method": "draft-only-editorial-agent-check",
-    "contentHash": "828b60ef56d2cdfbe20621358dc67a582c8e7ac9bcf043f5654f3dd57d40636f",
-    "reviewedAt": "2026-10-12T18:00:09.152Z"
+    "method": "draft-title-equivalence-correction",
+    "contentHash": "4aaf625348acedf623d66a3ddd3e0d12f114d67d1720b23a2039d20ec10253e7",
+    "reviewedAt": "2026-10-13T07:39:14.066Z"
   }
 }
