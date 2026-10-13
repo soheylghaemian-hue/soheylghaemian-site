@@ -42,3 +42,12 @@ jobs:
       - name: Record outcome
         if: always()
         run: node scripts/publication-summary.mjs
+      - name: Preserve review and publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: publication-evidence
+          path: |
+            agent/out/screening.json
+            agent/out/receipt.json
+          if-no-files-found: warn
