@@ -48,6 +48,7 @@ jobs:
         with:
           name: publication-evidence
           path: |
+            agent/out/generated-draft.json
             agent/out/screening.json
             agent/out/receipt.json
           if-no-files-found: warn
