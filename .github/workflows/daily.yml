@@ -1,7 +1,8 @@
 name: ENDGAME daily bilingual publication
 on:
   schedule:
-    - cron: '17 6 * * *'
+    - cron: '0 9 * * *'
+      timezone: 'Europe/Berlin'
   workflow_dispatch:
 permissions:
   contents: write
