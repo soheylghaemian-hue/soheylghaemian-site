@@ -19,5 +19,22 @@
       "exit-alternative",
       "good-offer-wrong-goal"
     ]
+  },
+  {
+    "id": "tate-stairs-shareholder-goals",
+    "path": "/assets/images/tate-stairs.jpg",
+    "sha256": "c41d0ce6827c9475f82dd33488c1233875bf864e3be064598b989967a1f01ebf",
+    "author": "Adrian Boliston",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Curved_concrete_stairs_Blavatnik_building_at_the_Tate_Modern_2025-03-18.jpg",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "changes": "Resized / verkleinert (1280 px).",
+    "alt": {
+      "en": "Curved concrete staircase in the Blavatnik Building at Tate Modern, London.",
+      "de": "Geschwungene Betontreppe im Blavatnik Building der Tate Modern in London."
+    },
+    "topicIds": [
+      "shareholder-goals"
+    ]
   }
 ]
