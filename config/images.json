@@ -36,5 +36,22 @@
     "topicIds": [
       "shareholder-goals"
     ]
+  },
+  {
+    "id": "moving-track-scorecard",
+    "path": "/assets/images/moving-track.jpg",
+    "sha256": "8aeed7bb1cd9a403256cfa68f170e15cfe519c10c6bfe711bdb763b5940bf41a",
+    "author": "Sindugab",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Moving_track.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "changes": "Resized to 1280 px by Wikimedia Commons / von Wikimedia Commons auf 1280 px verkleinert.",
+    "alt": {
+      "en": "Railway tracks blurred by movement, photographed from a moving train.",
+      "de": "Durch Bewegung verwischte Bahngleise, aus einem fahrenden Zug fotografiert."
+    },
+    "topicIds": [
+      "personal-scorecard"
+    ]
   }
 ]
