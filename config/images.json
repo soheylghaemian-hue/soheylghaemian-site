@@ -53,5 +53,22 @@
     "topicIds": [
       "personal-scorecard"
     ]
+  },
+  {
+    "id": "brooklyn-bridge-dependency",
+    "path": "/assets/images/brooklyn-bridge.jpg",
+    "sha256": "4edd765d824afe458393965d589460d0594437d16f7230f5bb50c541b62f0527",
+    "author": "Pierre Blaché",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brooklyn_Bridge,_New_York.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "changes": "Resized to 1280 px by Wikimedia Commons / von Wikimedia Commons auf 1280 px verkleinert.",
+    "alt": {
+      "en": "Brooklyn Bridge at dusk with suspension cables and the Manhattan skyline.",
+      "de": "Brooklyn Bridge in der Dämmerung mit Tragseilen und der Skyline von Manhattan."
+    },
+    "topicIds": [
+      "founder-dependency"
+    ]
   }
 ]
