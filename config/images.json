@@ -70,5 +70,22 @@
     "topicIds": [
       "founder-dependency"
     ]
+  },
+  {
+    "id": "observatory-evidence",
+    "path": "/assets/images/observatory-telescope.jpg",
+    "sha256": "533c96bd9c6943c320cd991dcecee176f8b0add651d9b1ee184a87e191d68222",
+    "author": "SSPWXR",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Observatory_Telescope_at_the_University_of_Saskatchewan.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "changes": "Resized to 1280 px by Wikimedia Commons / von Wikimedia Commons auf 1280 px verkleinert.",
+    "alt": {
+      "en": "Telescope beneath the open observatory dome at the University of Saskatchewan.",
+      "de": "Teleskop unter der geöffneten Sternwartenkuppel der University of Saskatchewan."
+    },
+    "topicIds": [
+      "evidence-before-scale"
+    ]
   }
 ]
