@@ -87,5 +87,56 @@
     "topicIds": [
       "evidence-before-scale"
     ]
+  },
+  {
+    "id": "brooklyn-bridge-dependency-cost-of-control",
+    "path": "/assets/images/brooklyn-bridge.jpg",
+    "sha256": "4edd765d824afe458393965d589460d0594437d16f7230f5bb50c541b62f0527",
+    "author": "Pierre Blaché",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brooklyn_Bridge,_New_York.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "changes": "Resized to 1280 px by Wikimedia Commons / von Wikimedia Commons auf 1280 px verkleinert.",
+    "alt": {
+      "en": "Brooklyn Bridge at dusk with suspension cables and the Manhattan skyline.",
+      "de": "Brooklyn Bridge in der Dämmerung mit Tragseilen und der Skyline von Manhattan."
+    },
+    "topicIds": [
+      "cost-of-control"
+    ]
+  },
+  {
+    "id": "observatory-evidence-shareholder-unknowns",
+    "path": "/assets/images/observatory-telescope.jpg",
+    "sha256": "533c96bd9c6943c320cd991dcecee176f8b0add651d9b1ee184a87e191d68222",
+    "author": "SSPWXR",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Observatory_Telescope_at_the_University_of_Saskatchewan.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "changes": "Resized to 1280 px by Wikimedia Commons / von Wikimedia Commons auf 1280 px verkleinert.",
+    "alt": {
+      "en": "Telescope beneath the open observatory dome at the University of Saskatchewan.",
+      "de": "Teleskop unter der geöffneten Sternwartenkuppel der University of Saskatchewan."
+    },
+    "topicIds": [
+      "shareholder-unknowns"
+    ]
+  },
+  {
+    "id": "moving-track-scorecard-review-date",
+    "path": "/assets/images/moving-track.jpg",
+    "sha256": "8aeed7bb1cd9a403256cfa68f170e15cfe519c10c6bfe711bdb763b5940bf41a",
+    "author": "Sindugab",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Moving_track.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "changes": "Resized to 1280 px by Wikimedia Commons / von Wikimedia Commons auf 1280 px verkleinert.",
+    "alt": {
+      "en": "Railway tracks blurred by movement, photographed from a moving train.",
+      "de": "Durch Bewegung verwischte Bahngleise, aus einem fahrenden Zug fotografiert."
+    },
+    "topicIds": [
+      "review-date"
+    ]
   }
 ]
