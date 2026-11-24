@@ -8,7 +8,7 @@ const gitApi=`https://api.github.com/repos/${repo}/git`;
 const api=`https://api.github.com/repos/${repo}/contents/ledger.json`;
 export function allowance(body,now=new Date()) {
  if(body.model!=='gpt-5.4-mini'||body.service_tier!=='default')throw new Error('Budget pricing permits only the approved standard model.');
- if(now>new Date('2026-11-12T00:00:00Z'))throw new Error('Budget pricing review expired. Recheck rates before API use.');
+ if(now>new Date('2026-12-12T00:00:00Z'))throw new Error('Budget pricing review expired. Recheck rates before API use.');
  if(!Number.isInteger(body.max_output_tokens)||body.max_output_tokens<1||body.max_output_tokens>10000)throw new Error('Invalid output token cap.');
  if(Buffer.byteLength(JSON.stringify(body),'utf8')>45000)throw new Error('Request exceeds the budget input bound.');
  // Bound input conservatively by UTF-8 bytes plus generous framing/schema overhead.
