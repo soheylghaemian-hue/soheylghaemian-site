@@ -1,0 +1,151 @@
+{
+  "title": "Your best year may have been the weather",
+  "description": "Growth in a rising market does not prove the business model. Three questions to ask before you scale on the back of a good year.",
+  "language": "en",
+  "slug": "your-best-year-may-have-been-the-weather",
+  "topicId": "best-year-weather",
+  "sourceIds": [
+    "endgame-core",
+    "endgame-downside"
+  ],
+  "sections": [
+    {
+      "heading": "The year everything worked",
+      "paragraphs": [
+        "Picture a hypothetical company that grew 40 percent last year. New customers came in, prices held, the team grew. The owner concludes that the strategy works and plans to double down: more staff, a second location, a larger credit line.",
+        "Maybe the strategy does work. But the numbers alone can't tell you, because they answer a different question. They tell you what happened. They don't tell you why.",
+        "In a year when the whole market grows 30 percent, a company that grows 40 has outperformed by ten points, not by forty. And part of those ten may still be luck: one large client, one competitor that stumbled, one product that happened to fit the moment."
+      ]
+    },
+    {
+      "heading": "Separating the weather from the climate",
+      "paragraphs": [
+        "The problem is not optimism. It's attribution. When things go well, we credit our decisions. When things go badly, we blame the market. Both can be true, just not always in our favour.",
+        "Before scaling on the back of a good year, I find three questions useful. None of them is sophisticated. They are simply the questions a good year makes us forget to ask."
+      ]
+    },
+    {
+      "heading": "Question 1: What did the market do?",
+      "paragraphs": [
+        "Compare your growth with the growth of the market you're in, and with the competitors you know. If they grew at the same rate, you didn't find an edge. You were carried.",
+        "That's not a criticism. Being carried is pleasant, and it pays the bills. It's just not something you can scale, because you don't control it. The tide that lifted you will lift your competitors' expansion plans too, and it will go out for all of you at the same time."
+      ]
+    },
+    {
+      "heading": "Question 2: Where did the growth come from?",
+      "paragraphs": [
+        "Break the result down. How much came from new customers, how much from existing ones? How much from one or two large deals? How much from price increases that the market happened to accept this year?",
+        "A company that grew through three customers has a different kind of strength than one that grew through three hundred. The first is fragile in a way the total figure hides. Both look identical on the summary slide."
+      ]
+    },
+    {
+      "heading": "Question 3: What would it look like in a normal year?",
+      "paragraphs": [
+        "Take the expanded company you are planning and run it through an ordinary year, not the exceptional one. Lower demand, slower payments, one key client lost. Check whether the larger fixed costs still work.",
+        "If the expanded company only works in conditions like last year's, you are not scaling a strategy. You are betting that the weather holds."
+      ]
+    },
+    {
+      "heading": "Why this matters more now",
+      "paragraphs": [
+        "AI makes this question sharper. Many companies are currently seeing a real jump in productivity from new tools. Tasks that took a day take an hour.",
+        "That jump is real. But it is also available to every competitor, at roughly the same price, at roughly the same time. An advantage everyone can buy doesn't stay an advantage for long. It becomes the new baseline.",
+        "So the useful question is not whether you got faster. It is whether you got faster than the others, in a way they can't simply copy, and whether that gap will survive once they catch up. A productivity gain that the whole market shares is weather, too."
+      ]
+    },
+    {
+      "heading": "What I take from it",
+      "paragraphs": [
+        "A good year is information, not proof. Use it to ask better questions, not to stop asking them.",
+        "Scale what you understand. If you can't explain why something worked, in a way that would also hold in a worse year, find out before you build on it.",
+        "And be as curious about your successes as you are about your failures. Failures get investigated anyway. Successes rarely do, and they are the ones you are about to bet on."
+      ]
+    }
+  ],
+  "translations": {
+    "de": {
+      "title": "Ihr bestes Jahr war vielleicht nur gutes Wetter",
+      "description": "Wachstum in einem steigenden Markt beweist das Geschäftsmodell nicht. Drei Fragen, bevor Sie auf Grundlage eines guten Jahres skalieren.",
+      "language": "de",
+      "slug": "ihr-bestes-jahr-war-vielleicht-nur-gutes-wetter",
+      "sections": [
+        {
+          "heading": "Das Jahr, in dem alles funktionierte",
+          "paragraphs": [
+            "Stellen Sie sich ein hypothetisches Unternehmen vor, das im letzten Jahr um 40 Prozent gewachsen ist. Neue Kunden kamen dazu, die Preise hielten, das Team wurde größer. Der Inhaber schließt daraus, dass die Strategie funktioniert, und will nachlegen: mehr Personal, ein zweiter Standort, eine höhere Kreditlinie.",
+            "Vielleicht funktioniert die Strategie wirklich. Aber die Zahlen allein können das nicht zeigen, denn sie beantworten eine andere Frage. Sie sagen, was passiert ist. Sie sagen nicht, warum.",
+            "In einem Jahr, in dem der ganze Markt um 30 Prozent wächst, hat ein Unternehmen mit 40 Prozent Wachstum den Markt um zehn Punkte geschlagen, nicht um vierzig. Und ein Teil dieser zehn kann immer noch Glück sein: ein großer Kunde, ein Wettbewerber, der gestolpert ist, ein Produkt, das zufällig in den Moment passte."
+          ]
+        },
+        {
+          "heading": "Wetter von Klima unterscheiden",
+          "paragraphs": [
+            "Das Problem ist nicht Optimismus. Es ist die Zuordnung. Läuft es gut, schreiben wir es unseren Entscheidungen zu. Läuft es schlecht, war es der Markt. Beides kann stimmen, nur nicht immer zu unseren Gunsten.",
+            "Bevor ich auf Grundlage eines guten Jahres skaliere, helfen mir drei Fragen. Keine davon ist raffiniert. Es sind einfach die Fragen, die man in einem guten Jahr vergisst."
+          ]
+        },
+        {
+          "heading": "Frage 1: Was hat der Markt gemacht?",
+          "paragraphs": [
+            "Vergleichen Sie Ihr Wachstum mit dem Wachstum Ihres Marktes und mit den Wettbewerbern, die Sie kennen. Sind die genauso gewachsen, haben Sie keinen Vorsprung gefunden. Sie wurden getragen.",
+            "Das ist keine Kritik. Getragen zu werden ist angenehm, und es bezahlt die Rechnungen. Man kann es nur nicht skalieren, weil man es nicht steuert. Die Flut, die Sie gehoben hat, hebt auch die Expansionspläne Ihrer Wettbewerber, und sie geht für alle gleichzeitig zurück."
+          ]
+        },
+        {
+          "heading": "Frage 2: Woher kam das Wachstum?",
+          "paragraphs": [
+            "Zerlegen Sie das Ergebnis. Wie viel kam von neuen Kunden, wie viel von bestehenden? Wie viel aus ein oder zwei großen Aufträgen? Wie viel aus Preiserhöhungen, die der Markt in diesem Jahr zufällig hingenommen hat?",
+            "Ein Unternehmen, das durch drei Kunden gewachsen ist, hat eine andere Art von Stärke als eines, das durch dreihundert gewachsen ist. Das erste ist auf eine Weise verwundbar, die die Gesamtzahl verdeckt. Auf der Übersichtsfolie sehen beide gleich aus."
+          ]
+        },
+        {
+          "heading": "Frage 3: Wie sähe es in einem normalen Jahr aus?",
+          "paragraphs": [
+            "Nehmen Sie das größere Unternehmen, das Sie planen, und spielen Sie es in einem gewöhnlichen Jahr durch, nicht im außergewöhnlichen. Weniger Nachfrage, langsamere Zahlungen, ein wichtiger Kunde weg. Prüfen Sie, ob die höheren Fixkosten dann noch tragen.",
+            "Funktioniert das größere Unternehmen nur unter Bedingungen wie im letzten Jahr, skalieren Sie keine Strategie. Sie wetten darauf, dass das Wetter hält."
+          ]
+        },
+        {
+          "heading": "Warum das heute wichtiger ist",
+          "paragraphs": [
+            "KI verschärft diese Frage. Viele Unternehmen erleben gerade einen echten Produktivitätssprung durch neue Werkzeuge. Was einen Tag dauerte, dauert eine Stunde.",
+            "Dieser Sprung ist echt. Aber er steht auch jedem Wettbewerber zur Verfügung, zu ungefähr demselben Preis und ungefähr zur selben Zeit. Ein Vorteil, den jeder kaufen kann, bleibt nicht lange ein Vorteil. Er wird zur neuen Grundlinie.",
+            "Die nützliche Frage ist also nicht, ob Sie schneller geworden sind. Sondern ob Sie schneller geworden sind als die anderen, auf eine Weise, die sich nicht einfach kopieren lässt, und ob dieser Abstand bleibt, wenn die anderen aufholen. Ein Produktivitätsgewinn, den der ganze Markt teilt, ist auch nur Wetter."
+          ]
+        },
+        {
+          "heading": "Was ich daraus mitnehme",
+          "paragraphs": [
+            "Ein gutes Jahr ist eine Information, kein Beweis. Nutzen Sie es, um bessere Fragen zu stellen, nicht, um mit dem Fragen aufzuhören.",
+            "Skalieren Sie, was Sie verstehen. Wenn Sie nicht erklären können, warum etwas funktioniert hat, und zwar so, dass es auch in einem schlechteren Jahr gelten würde, finden Sie es heraus, bevor Sie darauf bauen.",
+            "Und seien Sie bei Ihren Erfolgen so neugierig wie bei Ihren Misserfolgen. Misserfolge werden ohnehin untersucht. Erfolge selten, und auf genau die wollen Sie gerade wetten."
+          ]
+        }
+      ]
+    }
+  },
+  "image": {
+    "id": "moving-track-best-year-weather",
+    "path": "/assets/images/moving-track.jpg",
+    "sha256": "8aeed7bb1cd9a403256cfa68f170e15cfe519c10c6bfe711bdb763b5940bf41a",
+    "author": "Sindugab",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Moving_track.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "changes": "Resized to 1280 px by Wikimedia Commons / von Wikimedia Commons auf 1280 px verkleinert.",
+    "alt": {
+      "en": "Railway tracks blurred by movement, photographed from a moving train.",
+      "de": "Durch Bewegung verwischte Bahngleise, aus einem fahrenden Zug fotografiert."
+    },
+    "topicIds": [
+      "best-year-weather"
+    ]
+  },
+  "publishedDate": "2026-11-25",
+  "review": {
+    "passed": true,
+    "method": "owner-approved-manual-review",
+    "contentHash": "11e56eaa77debb72ca15d7f9eebdfc25109a8cd28301bf0404829cad2c4f01b6",
+    "reviewedAt": "2026-11-25T10:49:05.868Z"
+  }
+}
